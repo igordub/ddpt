@@ -673,16 +673,13 @@ PROGRAM genENM
   WRITE(7432,'(A)') 'draw color black'
 
   ! Write PyMOL script for the ENM visualization
-  OPEN(file='draw_enm.py',form='FORMATTED',unit=7433)
+  OPEN(file='draw_enm.pml',form='FORMATTED',unit=7433)
 
   WRITE(7433,'(A)') '# PyMOL script'
   WRITE(7433,'(A)') '# Visualization of the elastic network with sticks'
-  WRITE(7433,'(A)') 'import click'
-  WRITE(7433,'(A)') 'from pymol import cmd'
-  WRITE(7433,'(A)') '@click.command()'
-  WRITE(7433,'(A)') '@click.argument("input_filepath", type=click.Path(exists=True))'
-  WRITE(7433,'(A)') 'cmd.bg_color("white")'
-  WRITE(7433,'(A)') 'cmd.load(input_filepath, "enm")' ! Load CAonly as 'enm'
+  WRITE(7433,'(A)') '# Load PDB file which was used to build the ENM. Next, run this script.'
+  WRITE(7433,'(A)') '# PyMOL> cmd.load("CAonly.pdb", "enm")'
+  WRITE(7433,'(A)') '# PyMOL> cmd.run("draw_enm.pml")'
   WRITE(7433,'(A)') 'cmd.unbond("enm","enm")' ! In case CAonly.pdb contains `CONECT` records
 
   OPEN(file='matrix.sdijf',form='FORMATTED',unit=9432)
@@ -901,6 +898,7 @@ PROGRAM genENM
   WRITE(7433,'(A)') 'cmd.show_as("sticks", "enm")'
   WRITE(7433,'(A)') 'cmd.show("spheres", "enm")'
   WRITE(7433,'(A)') 'cmd.set("sphere_scale", 0.8, "ENM")'
+  WRITE(7433,'(A)') 'cmd.bg_color("white")'
   WRITE(7433,'(A)') 'cmd.orient("enm")'
   CLOSE(7433)
 
