@@ -188,7 +188,7 @@ PROGRAM genENM
         resnumold(i)=resnum(i)
         massold(i)=mass(i)
         chainold(i)=chain(i)
-        IF ((index(name(i),'CA').gt.0) .or.(name(i).eq." P  ".and.index(res(i),'D').gt.0.and.dna) &
+        IF ((index(name(i),' CA ').gt.0) .or.(name(i).eq." P  ".and.index(res(i),'D').gt.0.and.dna) &
              .or.(name(i).eq." C4'".and.index(res(i),'D').gt.0.and.dna) &
              .or.(name(i).eq." C2 ".and.index(res(i),'D').gt.0.and.dna))THEN
            j=j+1
