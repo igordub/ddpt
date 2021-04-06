@@ -180,7 +180,7 @@ PROGRAM spacing
   OPEN(file='dist.dat',form='FORMATTED',unit=6434)
   DO i=1,natom
      DO j=1,natom
-        WRITE(6434,'(1X,I5,1X,I5,1X,G11.4)') resnum(i), resnum(j), ((x(i)-x(j))**2+(y(i)-y(j))**2+(z(i)-z(j))**2)**0.5
+        WRITE(6434,'(1X,I5,1X,I5,1X,G11.4)') i, j, ((x(i)-x(j))**2+(y(i)-y(j))**2+(z(i)-z(j))**2)**0.5
      END DO
      WRITE(6434,'(1X)')
   END DO

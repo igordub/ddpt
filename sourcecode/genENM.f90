@@ -712,10 +712,10 @@ PROGRAM genENM
            dist=sqrt(dist2)
            
            ! If a cutoff vector has been defined then the atom-atom cutoff 
-           ! is taken here as the larger of the 2 values
+           ! is taken here as the small of the 2 values
            cutoff=cutoffdef
            IF (cutvect) THEN
-              cutoff=max(acutoff(i),acutoff(j))
+              cutoff=min(acutoff(i),acutoff(j))
            END IF
            
            IF (hin) THEN
@@ -737,7 +737,7 @@ PROGRAM genENM
               DO cbnum=1,cbs
                  IF (resnum(i).eq.custres(cbnum,1).and.chain(i).eq.custchain(cbnum,1).and. &
                       resnum(j).eq.custres(cbnum,2).and.chain(j).eq.custchain(cbnum,2)) THEN
-                    cutoff=9999.d9
+                    cutoff=cutoffdef
                  END IF
               END DO
            END IF

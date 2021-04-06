@@ -56,13 +56,14 @@ for line in inlines:
 		ol.append([])
 		
 	else:
-		mi[i].append(int(line.split()[0]))
-		mj[i].append(int(line.split()[1]))
+		mi[i].append(int(line.split()[0])+8)
+		mj[i].append(int(line.split()[1])+8)
 		ol[i].append(float(line.split()[2]))
 		
 mi=np.array(mi)
 mj=np.array(mj)
 ol=np.array(ol)
+
 
 fig=plt.figure(1, figsize=(11,8))
 ax=fig.add_subplot(111)
@@ -82,15 +83,8 @@ ax.set_ylim(mj.max(), mj.min())
 cbar=fig.colorbar(cmain,aspect=10,ticks=[-1,-0.75,-0.5,-0.25,0.0,0.25,0.5,0.75,1.0])
 #cbar.ax.set_yticklabels(['$0.965$','$0.975$','$0.985$','$0.995$','$1.005$','$1.015$','$1.025$'])
 
-gca()
-
-for item in range(mi.min(), mi.max()):
-	if item not in mi:
-		gca().add_patch(Rectangle((item,mj.min()),1,mj.max()-mj.min(),color='blue'))
-		gca().add_patch(Rectangle((mi.min(),item),mi.max()-mi.min(),1,color='blue'))
-
-
 fig.text(.85, .95, 'Cross correlation', horizontalalignment='center')
+
 
 plt.rcParams.update({'font.size': 22})
 

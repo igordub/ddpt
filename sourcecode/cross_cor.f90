@@ -5,17 +5,14 @@ PROGRAM cross_cor
   USE read_files
   USE nrutil
   IMPLICIT NONE
-  CHARACTER :: lign80*80, pdbfile*120, hetchoice*20, filename*120, dummy*120
+  CHARACTER :: lign80*80, pdbfile*40, hetchoice*20, filename*120, dummy*120
   INTEGER :: skipvec, numvec, endvec, startvec, ndim, vector, i, j, k, io, natom, m
   INTEGER :: nat, resid, residold, st, en
   INTEGER, ALLOCATABLE,DIMENSION(:) :: natvec
   REAL(DP), ALLOCATABLE, DIMENSION(:) :: eigenval
   REAL(DP), ALLOCATABLE, DIMENSION(:,:) :: eigen, crosscor
   REAL(DP) :: sum, dot, lengthi, lengthj
-  LOGICAL :: hetatm, getoption, qexist,nopdb
-  INTEGER, ALLOCATABLE,DIMENSION(:) :: atnum,resnum
-  REAL(DP), ALLOCATABLE,DIMENSION(:) ::x,y,z,occ,bfac
-  CHARACTER, ALLOCATABLE, DIMENSION(:) :: atom*6,name*4,res*3,chain*1,elem*2,chag*2
+  LOGICAL :: hetatm, getoption, qexist
 
   IF (getoption('-help',.false.,dummy)) THEN
      CALL helptext(0)
@@ -32,15 +29,15 @@ PROGRAM cross_cor
      STOP "eigenfacs file specified does not exist"
   END IF
 
-  nopdb=.false.
-  IF(.not.getoption('-pdb',.true.,pdbfile)) THEN
-     nopdb=.true.
-  END IF
-
-  INQUIRE(file=pdbfile,exist=qexist)
-  IF (.not.qexist) THEN
-     nopdb=.true.
-  END IF
+!  IF(.not.getoption('-pdb',.true.,pdbfile)) THEN
+!     CALL helptext(0)
+!     CALL exit(0)
+!  END IF
+!
+!  INQUIRE(file=pdbfile,exist=qexist)
+!  IF (.not.qexist) THEN
+!     STOP "pdbfile file specified does not exist"
+!  END IF
   
   IF (getoption('-d1',.false.,dummy)) THEN
      ndim=1
@@ -94,17 +91,6 @@ PROGRAM cross_cor
      END DO
   END DO
 
-
-  IF (nopdb) THEN
-     ALLOCATE(resnum(natom))
-     DO i=1,natom
-        resnum(i)=i
-     END DO
-  ELSE
-     CALL read_pdb(pdbfile,hetatm,natom,atom,atnum,name,res,chain,resnum,x,y,z, &
-          occ,bfac,elem,chag) 
-  END IF
-  
 !!$  OPEN(file=pdbfile,form="FORMATTED",status="OLD",unit=2356)
 !!$
 !!$  DO
@@ -241,7 +227,7 @@ PROGRAM cross_cor
 
   DO i=1,natom
      DO j=1,natom
-        WRITE(5897,'(1X,I5,1X,I5,1X,G11.4)') resnum(i), resnum(j), crosscor(i,j)
+        WRITE(5897,'(1X,I5,1X,I5,1X,G11.4)') i, j, crosscor(i,j)
      END DO
      WRITE(5897,'(1X)')
   END DO

@@ -65,8 +65,8 @@ for line in inlines:
 		ol.append([])
 		
 	else:
-		mi[i].append(int(line.split()[0]))
-		mj[i].append(int(line.split()[1]))
+		mi[i].append(int(line.split()[0])+8)
+		mj[i].append(int(line.split()[1])+8)
 		ol[i].append(float(line.split()[2]))
 				
 mi=np.array(mi)
@@ -93,8 +93,8 @@ for line in inlines:
 		ol2.append([])
 		
 	else:
-		mi2[j].append(int(line.split()[0]))
-		mj2[j].append(int(line.split()[1]))
+		mi2[j].append(int(line.split()[0])+8)
+		mj2[j].append(int(line.split()[1])+8)
 		ol2[j].append(float(line.split()[2]))
 		
 mi2=np.array(mi2)
@@ -122,13 +122,6 @@ ax.set_ylim(mj.max(), mj.min())
 
 cbar=fig.colorbar(cmain,aspect=10,shrink=0.9,ticks=[0,2,4,6,8,10,12,14,16])
 cbar2=fig.colorbar(csec,aspect=10,shrink=0.9,ticks=[-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1])
-
-gca()
-
-for item in range(mi.min(), mi.max()):
-	if item not in mi:
-		gca().add_patch(Rectangle((item,mj.min()),1,mj.max()-mj.min(),color='darkseagreen'))
-		gca().add_patch(Rectangle((mi.min(),item),mi.max()-mi.min(),1,color='darkseagreen'))
 
 fig.text(.81, .9, 'Distance \n / $\AA{}$', horizontalalignment='center')
 fig.text(.70, .9, 'Cross \n correlation', horizontalalignment='center')

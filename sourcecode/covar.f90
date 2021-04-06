@@ -471,11 +471,21 @@ PROGRAM covar
   
 ! Finished writting pdb file
 !-------------------------------------------------------------------------------------------
+  DEALLOCATE(atom)
+  DEALLOCATE(atnum)
+  DEALLOCATE(name)
+  DEALLOCATE(res)
+  DEALLOCATE(chain)
+  DEALLOCATE(resnum)
+  DEALLOCATE(occ)
+  DEALLOCATE(bfac)
+  DEALLOCATE(elem)
+  DEALLOCATE(chag)
+
+! subtract the mean and mass scale the input
   ALLOCATE(rootmass(natom))
-  DO i=1,natom
-     rootmass(i)=mass(i)**0.5
-  END DO
-  
+  rootmass=mass(1:natom)**0.5
+
   DO i=1,nframes
      coor(1:3*natom,i)=coor(1:3*natom,i)-xav(1:3*natom)
      DO j=1,natom
@@ -649,6 +659,9 @@ PROGRAM covar
     WRITE(2354,'(A)') ""
   END DO
   CLOSE(2354)
+
+  DEALLOCATE(fitval)
+  DEALLOCATE(coor)
 
 
 !  CALL draw_box(corners,box,nframes,volume,btype,ncorners)
