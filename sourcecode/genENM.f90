@@ -678,9 +678,9 @@ PROGRAM genENM
   WRITE(7433,'(A)') '# PyMOL script'
   WRITE(7433,'(A)') '# Visualization of the elastic network with sticks'
   WRITE(7433,'(A)') '# Load PDB file which was used to build the ENM. Next, run this script.'
-  WRITE(7433,'(A)') '# PyMOL> cmd.load("CAonly.pdb", "enm")'
+  WRITE(7433,'(A)') '# PyMOL> cmd.load("CAonly.pdb", "CAonly")'
   WRITE(7433,'(A)') '# PyMOL> cmd.run("draw_enm.pml")'
-  WRITE(7433,'(A)') 'cmd.unbond("enm","enm")' ! In case CAonly.pdb contains `CONECT` records
+  WRITE(7433,'(A)') 'cmd.unbond("CAonly","CAonly")' ! In case CAonly.pdb contains `CONECT` records
 
   OPEN(file='matrix.sdijf',form='FORMATTED',unit=9432)
 
@@ -893,13 +893,13 @@ PROGRAM genENM
   WRITE(7432,'(2A)') 'mol load pdb ',pdbfile
   CLOSE(7432)
   
-  ! Close ENM.pml file
-  WRITE(7433,'(A)') 'cmd.set_bond("stick_color", "black", "enm")'
-  WRITE(7433,'(A)') 'cmd.show_as("sticks", "enm")'
-  WRITE(7433,'(A)') 'cmd.show("spheres", "enm")'
-  WRITE(7433,'(A)') 'cmd.set("sphere_scale", 0.8, "ENM")'
-  WRITE(7433,'(A)') 'cmd.bg_color("white")'
-  WRITE(7433,'(A)') 'cmd.orient("enm")'
+  ! Close PyMOL file
+  WRITE(7433,'(A)') 'cmd.set_bond("stick_color", "black", "CAonly")'
+  WRITE(7433,'(A)') 'cmd.show_as("sticks", "CAonly")'
+  WRITE(7433,'(A)') 'cmd.show("spheres", "CAonly")'
+  WRITE(7433,'(A)') 'cmd.set("sphere_scale", 0.8, "CAonly")'
+  WRITE(7433,'(A)') 'cmd.bg_color("grey80")'
+  WRITE(7433,'(A)') 'cmd.orient("CAonly")'
   CLOSE(7433)
 
   WRITE(6,'(/A,F8.4,A)')' The matrix is ', 100.d0*dfloat(nnzero)/dfloat(3*natom*(3*natom+1)/2),' % Filled.'
