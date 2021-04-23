@@ -8,10 +8,11 @@
 #                                                                        #
 ##########################################################################
 
-COMPILER=@FC@
-SUFFIX=@suf@
-PREFIX=@pre@
-INS=@prefix@
+COMPILER=gfortran
+SUFFIX=
+PREFIX=
+INS=/usr/local
+.PHONY: misc
 
 ##########################################################################
 ##########################################################################
@@ -19,13 +20,15 @@ INS=@prefix@
 
 makefull:	ENM diagstd diagrtb GNM freq nmwiz cross_cor rms overlap \
 		GroAMED plotpdb covar fullca domains project \
-		eigen pdb_diff spacing movement trajpdb clean
+		eigen pdb_diff spacing movement trajpdb misc clean
 		@echo "Full Toolbox built"
 		@echo "Can be installed with make install"
 
 install:        
 		@mkdir -p ${INS}/DDPT
 		@cp ./bin/* ${INS}/DDPT/
+		@cp ./misc/mult ${INS}/DDPT
+		@cp ./misc/mult2 ${INS}/DDPT
 		@echo "Toolbox installed"
 		@echo "Make sure ${INS}/DDPT is in your path"
 
@@ -160,6 +163,18 @@ movement:
 		./sourcecode/utils.f90 ./sourcecode/movement.f90 \
 		-o ./bin/${PREFIX}MOVING${SUFFIX}
 		@echo "Built M  O  V  E  I  N  G"
+
+misc:	
+		@${COMPILER} ./misc/allo_chain.f90 -o ./misc/chain
+		@${COMPILER} ./misc/bfac_diff.f90 -o ./misc/bfac_diff
+		@${COMPILER} ./misc/bfac_input.f90 -o ./misc/bfac_input
+		@${COMPILER} ./misc/box.f90 -o ./misc/box
+		@${COMPILER} ./misc/centre.f90 -o ./misc/centre
+		@${COMPILER} ./misc/matrix.f90 -o ./misc/matrix
+		@${COMPILER} ./misc/mult.f90 -o ./misc/mult
+		@${COMPILER} ./misc/mult2.f90 -o ./misc/mult2
+		@${COMPILER} ./misc/total_en.f90 -o ./misc/total_en
+		@echo "Built misc"
 
 clean:
 		@rm -f *~ *.mod
