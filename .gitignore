@@ -4,3 +4,5 @@ config.log
 bin/*
 tmp/
 .vscode/
+misc/*
+!misc/*.f90
