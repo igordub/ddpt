@@ -757,11 +757,14 @@ PROGRAM genENM
            dist=sqrt(dist2)
            
            ! If a cutoff vector has been defined then the atom-atom cutoff 
-           ! is taken here as the larger of the 2 values
+           ! is taken here as the smallest of the 2 values
+           ! In the original code the largest value is chosen
            cutoff=cutoffdef
            IF (cutvect) THEN
-              cutoff=max(acutoff(i),acutoff(j))
+              cutoff=min(acutoff(i),acutoff(j))
+              ! cutoff=max(acutoff(i),acutoff(j))
            END IF
+           
            
            IF (hin) THEN
               IF (dist.lt.4.0) THEN
