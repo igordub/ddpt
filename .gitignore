@@ -2,7 +2,10 @@ Makefile
 config.status
 config.log
 bin/*
-tmp/
+tmp/*
 .vscode/
 misc/*
 !misc/*.f90
+
+# Include .gitkeep into version control
+!**/.gitkeep
