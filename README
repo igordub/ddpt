@@ -2,9 +2,10 @@ DDPT
 
 Quick Install:
 
-1. ./configure 
-2. make
-3. make install (sudo if you have not selected a local path)
+0. `chmod u+x configure.sh`
+1. `./configure.sh` (or `bash configure`)  
+2. `make`
+3. `make install` (`sudo` if you have not selected a local path)
 4. Enjoy!
 
 
