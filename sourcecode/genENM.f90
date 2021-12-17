@@ -696,10 +696,11 @@ PROGRAM genENM
                   
                   WRITE(7433,'(A)') '# PyMOL script'
                   WRITE(7433,'(A)') '# Visualization of the elastic network with sticks'
-                  WRITE(7433,'(A)') '# Load PDB file which was used to build the ENM. Next, run this script.'
-                  WRITE(7433,'(A)') '# PyMOL> cmd.load("CAonly.pdb", "CAonly")'
+                  WRITE(7433,'(A)') '# Run this script with'
+                  WRITE(7433,'(A)') '# PyMOL> cmd.load("pdb_file.pdb", "CAonly")'
                   WRITE(7433,'(A)') '# PyMOL> cmd.run("draw_enm.pml")'
-                  WRITE(7433,'(A)') 'cmd.unbond("CAonly","CAonly")' ! In case CAonly.pdb contains `CONECT` records
+
+                  ! WRITE(7433,'(A)') 'cmd.load("CAonly.pdb","CAonly")'
                   
                   OPEN(file='matrix.sdijf',form='FORMATTED',unit=9432)
                   
@@ -829,16 +830,16 @@ PROGRAM genENM
                                        ! PyMOL
                                        WRITE(dummy_i, '(I5)') i
                                        WRITE(dummy_j, '(I5)') j
-                                       spring_radius=SQRT(kij/kset)*0.1 ! Default EN spring radius is 0.1
+                                       spring_radius=SQRT(kij/kset)*0.10 ! Default EN spring radius is 0.10
                                        ! Write a bond
                                        WRITE(7433,'(A,2A,AI4,2A,AI4,A)') &
-                                       'cmd.bond(','"c. ',chain(i),' and i. ',resnum(i), &
-                                       '", "c. ',chain(j),' and i. ',resnum(j),'")'
+                                       'cmd.bond(','"%CAonly and c. ',chain(i),' and i. ',resnum(i), &
+                                       '", "%CAonly and c. ',chain(j),' and i. ',resnum(j),'")'
                                        ! Set stick radius for the bond
                                        WRITE(7433,'(A,F5.3,2A,AI4,2A,AI4,A)') &
                                        'cmd.set_bond("stick_radius", ',spring_radius, &
-                                       ', "c. ',chain(i),' and i. ',resnum(i),&
-                                       '", "c. ',chain(j),' and i. ',resnum(j),'")'
+                                       ', "%CAonly and c. ',chain(i),' and i. ',resnum(i),&
+                                       '", "%CAonly and c. ',chain(j),' and i. ',resnum(j),'")'
                                     END IF
                                     
                                     
