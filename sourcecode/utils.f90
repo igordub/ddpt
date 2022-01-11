@@ -134,6 +134,7 @@ CONTAINS
              ALLOCATE(massin(num))
              
              j=0
+             WRITE(6,'(A)') "Read resmass.dat file"
              DO
                 READ(2975,'(A)',IOSTAT=io) lign80
                 IF (io > 0) THEN
@@ -146,7 +147,8 @@ CONTAINS
                 ELSE
                    IF ((index(lign80,'#').gt.10).or.(index(lign80,'#').eq.0)) THEN
                       j=j+1
-                      READ(lign80,*) resin(j),massin(j)
+                      READ(lign80,'(1X,A3,1X,F7.3)') resin(j),massin(j)
+                      WRITE(6,'(2A,F7.3)') resin(j), " ", massin(j)
                    END IF
                 END IF
              END DO
@@ -155,7 +157,8 @@ CONTAINS
 
              DO j=1,num
                 IF (res(i).eq.resin(j)) THEN
-                   mass(i)=massin(j)
+                  WRITE(6,'(3A,F7.3)') "Assign ", resin(j), " mass of ", massin(j)
+                  mass(i)=massin(j)
                 END IF
              END DO
 
